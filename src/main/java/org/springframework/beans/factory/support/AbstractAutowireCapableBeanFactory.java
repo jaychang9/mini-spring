@@ -9,6 +9,13 @@ import org.springframework.beans.factory.config.BeanDefinition;
  */
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
 
+	/**
+	 * AbstractBeanFactory抽象方法createBean的实现
+	 * @param beanName
+	 * @param beanDefinition
+	 * @return
+	 * @throws BeansException
+	 */
 	@Override
 	protected Object createBean(String beanName, BeanDefinition beanDefinition) throws BeansException {
 		return doCreateBean(beanName, beanDefinition);
