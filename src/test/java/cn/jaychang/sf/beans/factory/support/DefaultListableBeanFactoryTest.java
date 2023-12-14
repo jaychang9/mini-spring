@@ -4,8 +4,8 @@ import cn.jaychang.sf.beans.PropertyValue;
 import cn.jaychang.sf.beans.PropertyValues;
 import cn.jaychang.sf.beans.factory.config.BeanDefinition;
 import cn.jaychang.sf.beans.factory.config.BeanReference;
-import cn.jaychang.sf.test.Car;
-import cn.jaychang.sf.test.People;
+import cn.jaychang.sf.test.bean.Car;
+import cn.jaychang.sf.test.bean.People;
 import org.junit.Assert;
 import org.junit.Test;
 

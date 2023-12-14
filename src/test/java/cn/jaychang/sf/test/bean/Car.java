@@ -1,4 +1,4 @@
-package cn.jaychang.sf.test;
+package cn.jaychang.sf.test.bean;
 
 /**
  * @author jaychang
