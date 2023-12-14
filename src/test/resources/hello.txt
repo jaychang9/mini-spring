@@ -1,0 +1,6 @@
+FileSystemResource，文件系统资源的实现类
+ClassPathResource，classpath下资源的实现类
+UrlResource，对java.net.URL进行资源定位的实现类
+ResourceLoader接口则是资源查找定位策略的抽象，DefaultResourceLoader是其默认实现类
+
+
