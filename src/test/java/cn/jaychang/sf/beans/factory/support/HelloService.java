@@ -10,4 +10,9 @@ public class HelloService {
 		System.out.println("hello");
 		return "hello";
 	}
+
+	@Override
+	public String toString() {
+		return "HelloService{}";
+	}
 }

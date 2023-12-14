@@ -1,12 +1,18 @@
 package cn.jaychang.sf.beans.factory.support;
 
-import cn.jaychang.sf.beans.BeansException;
+import cn.hutool.core.bean.BeanUtil;
+import cn.jaychang.sf.beans.PropertyValue;
 import cn.jaychang.sf.beans.factory.config.BeanDefinition;
+import cn.jaychang.sf.beans.factory.config.BeanReference;
+
+
 /**
  * @author jaychang
  * @date 2023/12/11
  **/
 public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
+
+    private InstantiationStrategy instantiationStrategy = new SimpleInstantiationStrategy();
 
     /**
      * AbstractBeanFactory抽象方法createBean的实现
@@ -20,21 +26,36 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     protected Object doCreateBean(String name, BeanDefinition beanDefinition) {
-        Class beanClass = beanDefinition.getBeanClass();
-        Object bean = null;
-        try {
-            bean = beanClass.newInstance();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            throw new BeansException("Instantiation of bean failed", e);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-            throw new BeansException("Instantiation of bean failed", e);
-        }
+        Object bean = createInstance(beanDefinition);
+        applyFillProperties(bean, beanDefinition);
         // 创建完 bean 后，放到单例缓存中
         addSingleton(name, bean);
         return bean;
     }
 
+    private void applyFillProperties(Object bean, BeanDefinition beanDefinition) {
+        for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
+            if (propertyValue.getValue() instanceof BeanReference) {
+                BeanReference beanReference = (BeanReference) propertyValue.getValue();
+                Object referenceBean = getBean(beanReference.getBeanName());
+                BeanUtil.setFieldValue(bean, propertyValue.getName(), referenceBean);
+            } else {
+                BeanUtil.setFieldValue(bean, propertyValue.getName(), propertyValue.getValue());
+            }
 
+        }
+    }
+
+    private Object createInstance(BeanDefinition beanDefinition) {
+        return getInstantiationStrategy().instantiate(beanDefinition);
+    }
+
+
+    public InstantiationStrategy getInstantiationStrategy() {
+        return instantiationStrategy;
+    }
+
+    public void setInstantiationStrategy(InstantiationStrategy instantiationStrategy) {
+        this.instantiationStrategy = instantiationStrategy;
+    }
 }
