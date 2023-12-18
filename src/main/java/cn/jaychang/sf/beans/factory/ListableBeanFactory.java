@@ -2,7 +2,6 @@ package cn.jaychang.sf.beans.factory;
 
 import cn.jaychang.sf.beans.BeansException;
 
-import java.util.List;
 import java.util.Map;
 
 /**

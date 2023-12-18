@@ -1,6 +1,7 @@
 package cn.jaychang.sf.beans.factory.support;
 
 import cn.jaychang.sf.beans.BeansException;
+import cn.jaychang.sf.core.io.DefaultResourceLoader;
 import cn.jaychang.sf.core.io.ResourceLoader;
 
 /**
@@ -14,7 +15,7 @@ public abstract class AbstractBeanDefinitionReader implements BeanDefinitionRead
     private ResourceLoader resourceLoader;
 
     public AbstractBeanDefinitionReader(BeanDefinitionRegistry registry) {
-        this.registry = registry;
+        this(registry, new DefaultResourceLoader());
     }
 
     public AbstractBeanDefinitionReader(BeanDefinitionRegistry registry, ResourceLoader resourceLoader) {

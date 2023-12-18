@@ -17,7 +17,7 @@ public interface BeanPostProcessor {
      * @param beanName
      * @throws BeansException
      */
-    void postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
+    Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException;
 
 
     /**
@@ -27,6 +27,6 @@ public interface BeanPostProcessor {
      * @param beanName
      * @throws BeansException
      */
-    void postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
+    Object postProcessAfterInitialization(Object bean, String beanName) throws BeansException;
 
 }

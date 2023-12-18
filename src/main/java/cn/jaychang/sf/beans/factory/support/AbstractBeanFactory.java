@@ -2,13 +2,20 @@ package cn.jaychang.sf.beans.factory.support;
 
 
 import cn.jaychang.sf.beans.BeansException;
-import cn.jaychang.sf.beans.factory.BeanFactory;
 import cn.jaychang.sf.beans.factory.config.BeanDefinition;
+import cn.jaychang.sf.beans.factory.config.BeanPostProcessor;
+import cn.jaychang.sf.beans.factory.config.ConfigurableBeanFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author jaychang
  **/
-public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements BeanFactory {
+public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+
+    private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
+
     @Override
     public Object getBean(String name) throws BeansException {
         // 由于继承了 DefaultSingletonBeanRegistry 所以拥有了单例缓存的能力，因此这里可以先从单例缓存中取 bean
@@ -25,4 +32,8 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     protected abstract BeanDefinition getBeanDefinition(String name);
 
+
+    public List<BeanPostProcessor> getBeanPostProcessors() {
+        return beanPostProcessors;
+    }
 }
