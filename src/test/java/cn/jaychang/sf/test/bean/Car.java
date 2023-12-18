@@ -6,27 +6,27 @@ package cn.jaychang.sf.test.bean;
  * @date 2023/12/14
  **/
 public class Car {
-    private String name;
+    private String brandName;
 
     public Car() {
     }
 
-    public Car(String name) {
-        this.name = name;
+    public Car(String brandName) {
+        this.brandName = brandName;
     }
 
-    public String getName() {
-        return name;
+    public String getBrandName() {
+        return brandName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 
     @Override
     public String toString() {
         return "Car{" +
-                "name='" + name + '\'' +
+                "brandName='" + brandName + '\'' +
                 '}';
     }
 }

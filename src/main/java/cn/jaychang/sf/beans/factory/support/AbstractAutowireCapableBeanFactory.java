@@ -2,6 +2,7 @@ package cn.jaychang.sf.beans.factory.support;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.jaychang.sf.beans.PropertyValue;
+import cn.jaychang.sf.beans.factory.config.AutowireCapableBeanFactory;
 import cn.jaychang.sf.beans.factory.config.BeanDefinition;
 import cn.jaychang.sf.beans.factory.config.BeanReference;
 
@@ -10,7 +11,7 @@ import cn.jaychang.sf.beans.factory.config.BeanReference;
  * @author jaychang
  * @date 2023/12/11
  **/
-public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory {
+public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFactory implements AutowireCapableBeanFactory {
 
     private InstantiationStrategy instantiationStrategy = new SimpleInstantiationStrategy();
 
@@ -27,13 +28,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
     protected Object doCreateBean(String name, BeanDefinition beanDefinition) {
         Object bean = createInstance(beanDefinition);
-        applyFillProperties(bean, beanDefinition);
+        applyProperties(bean, beanDefinition);
         // 创建完 bean 后，放到单例缓存中
         addSingleton(name, bean);
         return bean;
     }
 
-    private void applyFillProperties(Object bean, BeanDefinition beanDefinition) {
+    private void applyProperties(Object bean, BeanDefinition beanDefinition) {
         for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
             if (propertyValue.getValue() instanceof BeanReference) {
                 BeanReference beanReference = (BeanReference) propertyValue.getValue();

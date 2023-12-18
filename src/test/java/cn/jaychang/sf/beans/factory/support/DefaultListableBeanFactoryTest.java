@@ -53,13 +53,13 @@ public class DefaultListableBeanFactoryTest {
         beanFactory.registerBeanDefinition("people",new BeanDefinition(People.class, peoplePropertyValues));
 
         PropertyValues carPropertyValues = new PropertyValues();
-        carPropertyValues.addPropertyValue(new PropertyValue("name","geely"));
+        carPropertyValues.addPropertyValue(new PropertyValue("brandName","geely"));
         beanFactory.registerBeanDefinition("car",new BeanDefinition(Car.class, carPropertyValues));
 
         People people = (People) beanFactory.getBean("people");
         System.out.println(people);
         Assert.assertEquals(people.getName(),"jaychang");
-        Assert.assertEquals(people.getCar().getName(),"geely");
+        Assert.assertEquals(people.getCar().getBrandName(),"geely");
     }
 
 
