@@ -6,6 +6,7 @@ import cn.jaychang.sf.beans.PropertyValue;
 import cn.jaychang.sf.beans.factory.config.*;
 
 import java.util.List;
+import java.util.Objects;
 
 
 /**
@@ -44,6 +45,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private void applyProperties(Object bean, BeanDefinition beanDefinition) {
+        if (Objects.isNull(beanDefinition.getPropertyValues())) {
+            return;
+        }
         for (PropertyValue propertyValue : beanDefinition.getPropertyValues().getPropertyValues()) {
             // 引用类型注入
             if (propertyValue.getValue() instanceof BeanReference) {
