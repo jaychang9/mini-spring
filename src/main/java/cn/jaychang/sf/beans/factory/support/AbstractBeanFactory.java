@@ -16,6 +16,12 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     private final List<BeanPostProcessor> beanPostProcessors = new ArrayList<>();
 
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return (T)getBean(name);
+    }
+
     @Override
     public Object getBean(String name) throws BeansException {
         // 由于继承了 DefaultSingletonBeanRegistry 所以拥有了单例缓存的能力，因此这里可以先从单例缓存中取 bean

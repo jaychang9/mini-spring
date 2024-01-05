@@ -24,6 +24,9 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
         // 在 bean 实例化之前，执行 BeanFactoryPostProcessor
         invokeBeanFactoryPostProcessor(beanFactory);
 
+        // 增加内置的 ApplicationContextAwareProcessor
+        beanFactory.addBeanPostProcessor(new ApplicationContextAwareProcessor(this));
+
         // 注册 BeanPostProcessor， 需要在 bean 实例化之前注册
         registerBeanPostProcessors(beanFactory);
 
@@ -71,6 +74,11 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
     @Override
     public Object getBean(String name) throws BeansException {
         return getBeanFactory().getBean(name);
+    }
+
+    @Override
+    public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
+        return (T)getBeanFactory().getBean(name);
     }
 
     /**

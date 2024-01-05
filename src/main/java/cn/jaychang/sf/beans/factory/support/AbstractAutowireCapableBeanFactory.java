@@ -5,6 +5,8 @@ import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.jaychang.sf.beans.BeansException;
 import cn.jaychang.sf.beans.PropertyValue;
+import cn.jaychang.sf.beans.factory.BeanFactory;
+import cn.jaychang.sf.beans.factory.BeanFactoryAware;
 import cn.jaychang.sf.beans.factory.DisposableBean;
 import cn.jaychang.sf.beans.factory.InitializingBean;
 import cn.jaychang.sf.beans.factory.config.AutowireCapableBeanFactory;
@@ -91,6 +93,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     public Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+        if (bean instanceof BeanFactoryAware) {
+            BeanFactoryAware beanFactoryAware = (BeanFactoryAware) bean;
+            beanFactoryAware.setBeanFactory(this);
+        }
         // 执行 BeanPostProcessor 的前置处理
         Object wrappedBean = applyPostProcessBeforeInitialization(bean, beanName);
 
