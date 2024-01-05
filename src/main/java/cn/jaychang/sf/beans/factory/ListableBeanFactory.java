@@ -5,6 +5,7 @@ import cn.jaychang.sf.beans.BeansException;
 import java.util.Map;
 
 /**
+ * Listable 前缀 顾名思义，具有列表能力的，这里指的是可以获取 所有 bean 定义的名称数组，以及获取指定 bean 类型的所有 bean 实例列表
  * @author jaychang
  * @description TODO
  * @date 2023/12/15

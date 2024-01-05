@@ -33,6 +33,8 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     public static final String CLASS_ATTRIBUTE = "class";
     public static final String VALUE_ATTRIBUTE = "value";
     public static final String REF_ATTRIBUTE = "ref";
+    public static final String INIT_METHOD_ATTRIBUTE = "init-method";
+    public static final String DESTROY_METHOD_ATTRIBUTE = "destroy-method";
 
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
         super(registry);
@@ -77,15 +79,19 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             String name = beanElement.getAttribute(NAME_ATTRIBUTE);
             String beanName = StrUtil.isNotBlank(id) ? id : name;
             String className = beanElement.getAttribute(CLASS_ATTRIBUTE);
-            BeanDefinition beanDefinition = createBeanDefinition(beanElement, className);
+            String initMethodName = beanElement.getAttribute(INIT_METHOD_ATTRIBUTE);
+            String destroyMethodName = beanElement.getAttribute(DESTROY_METHOD_ATTRIBUTE);
+            BeanDefinition beanDefinition = createBeanDefinition(beanElement, className, initMethodName, destroyMethodName);
             getRegistry().registerBeanDefinition(beanName, beanDefinition);
         }
     }
 
-    private BeanDefinition createBeanDefinition(Element beanElement, String className) {
+    private BeanDefinition createBeanDefinition(Element beanElement, String className, String initMethodName, String destroyMethodName) {
         BeanDefinition beanDefinition;
         try {
             beanDefinition = new BeanDefinition(Class.forName(className));
+            beanDefinition.setInitMethodName(initMethodName);
+            beanDefinition.setDestroyMethodName(destroyMethodName);
         } catch (ClassNotFoundException e) {
             throw new BeansException(String.format("Class[%s] not found", className));
         }

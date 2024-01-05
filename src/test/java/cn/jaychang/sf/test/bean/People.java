@@ -1,11 +1,14 @@
 package cn.jaychang.sf.test.bean;
 
+import cn.jaychang.sf.beans.factory.DisposableBean;
+import cn.jaychang.sf.beans.factory.InitializingBean;
+
 /**
  * @author jaychang
  * @description TODO
  * @date 2023/12/14
  **/
-public class People {
+public class People implements InitializingBean, DisposableBean {
     private String name;
     private Integer age;
     private Car car;
@@ -43,6 +46,15 @@ public class People {
         this.car = car;
     }
 
+
+    public void customInitMethod() {
+        System.out.println("People.customInitMethod");
+    }
+
+    public void customDestroyMethod() {
+        System.out.println("People.customDestroyMethod");
+    }
+
     @Override
     public String toString() {
         return "People{" +
@@ -50,5 +62,15 @@ public class People {
                 ", age=" + age +
                 ", car=" + car +
                 '}';
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("People.destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("People.init");
     }
 }
