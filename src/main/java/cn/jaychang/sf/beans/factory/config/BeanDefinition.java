@@ -2,7 +2,15 @@ package cn.jaychang.sf.beans.factory.config;
 
 import cn.jaychang.sf.beans.PropertyValues;
 
+/**
+ * BeanDefinition实例保存bean的信息，包括class类型、方法构造参数、bean属性、bean的scope等，此处简化只包含class类型和bean属性
+ */
 public class BeanDefinition {
+
+    public static String SCOPE_SINGLETON = "singleton";
+
+    public static String SCOPE_PROTOTYPE = "prototype";
+
     private Class<?> beanClass;
 
     private PropertyValues propertyValues;
@@ -10,6 +18,13 @@ public class BeanDefinition {
     private String initMethodName;
 
     private String destroyMethodName;
+
+    /** 默认为单例 */
+    private String scope = SCOPE_SINGLETON;
+
+    private boolean singleton = true;
+
+    private boolean prototype = false;
 
     public BeanDefinition(Class<?> beanClass) {
         this(beanClass, null);
@@ -26,6 +41,12 @@ public class BeanDefinition {
 
     public void setBeanClass(Class<?> beanClass) {
         this.beanClass = beanClass;
+    }
+
+    public void setScope(String scope) {
+        this.scope = scope;
+        this.prototype = SCOPE_PROTOTYPE.equals(this.scope);
+        this.singleton = SCOPE_SINGLETON.equals(this.scope);
     }
 
     public PropertyValues getPropertyValues() {
@@ -50,5 +71,13 @@ public class BeanDefinition {
 
     public void setDestroyMethodName(String destroyMethodName) {
         this.destroyMethodName = destroyMethodName;
+    }
+
+    public boolean isSingleton() {
+        return singleton;
+    }
+
+    public boolean isPrototype() {
+        return prototype;
     }
 }

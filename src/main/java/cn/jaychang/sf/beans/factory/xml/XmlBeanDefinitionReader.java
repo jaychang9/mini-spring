@@ -35,6 +35,7 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
     public static final String REF_ATTRIBUTE = "ref";
     public static final String INIT_METHOD_ATTRIBUTE = "init-method";
     public static final String DESTROY_METHOD_ATTRIBUTE = "destroy-method";
+    public static final String SCOPE_ATTRIBUTE = "scope";
 
     public XmlBeanDefinitionReader(BeanDefinitionRegistry registry) {
         super(registry);
@@ -81,17 +82,26 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             String className = beanElement.getAttribute(CLASS_ATTRIBUTE);
             String initMethodName = beanElement.getAttribute(INIT_METHOD_ATTRIBUTE);
             String destroyMethodName = beanElement.getAttribute(DESTROY_METHOD_ATTRIBUTE);
-            BeanDefinition beanDefinition = createBeanDefinition(beanElement, className, initMethodName, destroyMethodName);
+            String scope = beanElement.getAttribute(SCOPE_ATTRIBUTE);
+            if (StrUtil.isNotBlank(scope)) {
+                if (!BeanDefinition.SCOPE_SINGLETON.equals(scope) && !BeanDefinition.SCOPE_PROTOTYPE.equals(scope)) {
+                    throw new BeansException(String.format("Bean [%s] has unkown scope value [%s]", beanName, scope));
+                }
+            }
+            BeanDefinition beanDefinition = createBeanDefinition(beanElement, className, initMethodName, destroyMethodName, scope);
             getRegistry().registerBeanDefinition(beanName, beanDefinition);
         }
     }
 
-    private BeanDefinition createBeanDefinition(Element beanElement, String className, String initMethodName, String destroyMethodName) {
+    private BeanDefinition createBeanDefinition(Element beanElement, String className, String initMethodName, String destroyMethodName, String scope) {
         BeanDefinition beanDefinition;
         try {
             beanDefinition = new BeanDefinition(Class.forName(className));
             beanDefinition.setInitMethodName(initMethodName);
             beanDefinition.setDestroyMethodName(destroyMethodName);
+            if (StrUtil.isNotBlank(scope)) {
+                beanDefinition.setScope(scope);
+            }
         } catch (ClassNotFoundException e) {
             throw new BeansException(String.format("Class[%s] not found", className));
         }

@@ -5,7 +5,6 @@ import cn.hutool.core.util.ClassUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.jaychang.sf.beans.BeansException;
 import cn.jaychang.sf.beans.PropertyValue;
-import cn.jaychang.sf.beans.factory.BeanFactory;
 import cn.jaychang.sf.beans.factory.BeanFactoryAware;
 import cn.jaychang.sf.beans.factory.DisposableBean;
 import cn.jaychang.sf.beans.factory.InitializingBean;
@@ -52,12 +51,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
         // 注册有销毁方法的bean
         registerDisposableBeanIfNecessary(name, bean, beanDefinition);
-        // 创建完 bean 后，放到单例缓存中
-        addSingleton(name, bean);
+        // 创建完bean后，放到单例缓存中
+        // 如果BeanDefinition的scope是单例模式，则创建完实例后，放到单例缓存中
+        if (beanDefinition.isSingleton()) {
+            addSingleton(name, bean);
+        }
         return bean;
     }
 
     protected void registerDisposableBeanIfNecessary(String name, Object bean, BeanDefinition beanDefinition) {
+        // 仅当beanDefinition的scope是单例模式时，才需要注册销毁的回调
+        if (beanDefinition.isPrototype()) {
+            return;
+        }
         if (bean instanceof DisposableBean || StrUtil.isNotBlank(beanDefinition.getDestroyMethodName())) {
             DisposableBeanAdapter disposableBeanAdapter = new DisposableBeanAdapter(bean, name, beanDefinition);
             registerDisposableBean(name, disposableBeanAdapter);
