@@ -30,7 +30,7 @@ public class DefaultSingletonBeanRegistry implements SingletonBeanRegistry {
     }
 
 
-    protected void addSingleton(String name, Object bean) {
+    public void addSingleton(String name, Object bean) {
         singletonBeanRegistry.put(name, bean);
     }
 
