@@ -79,10 +79,10 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
 
     protected void finishRefresh() {
-        publicEvent(new ContextRefreshedEvent(this));
+        publishEvent(new ContextRefreshedEvent(this));
     }
 
-    protected void publicEvent(ApplicationEvent applicationEvent) {
+    protected void publishEvent(ApplicationEvent applicationEvent) {
         this.applicationEventMulticaster.multicastEvent(applicationEvent);
     }
 
@@ -161,8 +161,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader i
 
     protected void doClose() {
         // 发布容器关闭事件
-        publicEvent(new ContextClosedEvent(this));
-
+        publishEvent(new ContextClosedEvent(this));
         destroyBeans();
     }
 

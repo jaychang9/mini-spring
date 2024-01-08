@@ -31,7 +31,7 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationListen
     protected boolean supportsEvent(ApplicationListener listener, ApplicationEvent event) {
         Type type = listener.getClass().getGenericInterfaces()[0];
         Type actualTypeArgument = ((ParameterizedType) type).getActualTypeArguments()[0];
-        String className = actualTypeArgument.getClass().getTypeName();
+        String className = actualTypeArgument.getTypeName();
         Class<?> eventClass = null;
         try {
             eventClass = Class.forName(className);

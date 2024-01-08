@@ -80,6 +80,12 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
             String name = beanElement.getAttribute(NAME_ATTRIBUTE);
             String beanName = StrUtil.isNotBlank(id) ? id : name;
             String className = beanElement.getAttribute(CLASS_ATTRIBUTE);
+            if (StrUtil.isBlank(beanName)) {
+                if (className.indexOf(".") > 0) {
+                    beanName = className.substring(className.lastIndexOf(".") + 1);
+                }
+                beanName = StrUtil.lowerFirst(beanName);
+            }
             String initMethodName = beanElement.getAttribute(INIT_METHOD_ATTRIBUTE);
             String destroyMethodName = beanElement.getAttribute(DESTROY_METHOD_ATTRIBUTE);
             String scope = beanElement.getAttribute(SCOPE_ATTRIBUTE);
