@@ -5,6 +5,7 @@ import cn.jaychang.sf.aop.framework.AopProxy;
 import cn.jaychang.sf.aop.framework.CglibAopProxy;
 import cn.jaychang.sf.aop.framework.JdkDynamicAopProxy;
 import cn.jaychang.sf.aop.framework.ProxyFactory;
+import cn.jaychang.sf.aop.framework.adapter.MethodAfterReturningAdviceInterceptor;
 import cn.jaychang.sf.aop.framework.adapter.MethodBeforeAdviceInterceptor;
 import org.junit.Before;
 import org.junit.Test;
@@ -48,6 +49,17 @@ public class DynamicProxyTest {
     public void testBeforeAdvice() throws Exception {
         WorldServiceBeforeAdvice worldServiceBeforeAdvice = new WorldServiceBeforeAdvice();
         MethodBeforeAdviceInterceptor methodBeforeAdviceInterceptor = new MethodBeforeAdviceInterceptor(worldServiceBeforeAdvice);
+        advisedSupport.setMethodInterceptor(methodBeforeAdviceInterceptor);
+
+        ProxyFactory proxyFactory = new ProxyFactory(advisedSupport);
+        WorldService worldService = (WorldService) proxyFactory.getProxy();
+        worldService.explode();
+    }
+
+    @Test
+    public void testAfterReturningAdvice() throws Exception {
+        WorldServiceAfterReturning worldServiceAfterReturning = new WorldServiceAfterReturning();
+        MethodAfterReturningAdviceInterceptor methodBeforeAdviceInterceptor = new MethodAfterReturningAdviceInterceptor(worldServiceAfterReturning);
         advisedSupport.setMethodInterceptor(methodBeforeAdviceInterceptor);
 
         ProxyFactory proxyFactory = new ProxyFactory(advisedSupport);
