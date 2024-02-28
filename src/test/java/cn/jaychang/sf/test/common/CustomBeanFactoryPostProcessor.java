@@ -18,7 +18,7 @@ public class CustomBeanFactoryPostProcessor implements BeanFactoryPostProcessor 
         BeanDefinition personBeanDefinition = beanFactory.getBeanDefinition("people");
         PropertyValues propertyValues = personBeanDefinition.getPropertyValues();
         // 将 person 的名字属性改为 jack
-        propertyValues.addPropertyValue(new PropertyValue("name","jack"));
+        propertyValues.addPropertyValue(new PropertyValue("name", "jack"));
 
     }
 }

@@ -14,7 +14,7 @@ public class ApplicationContextEvent extends ApplicationEvent {
     }
 
     public ApplicationContext getApplicationContext() {
-        return (ApplicationContext)getSource();
+        return (ApplicationContext) getSource();
     }
 
 }

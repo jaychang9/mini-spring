@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
  * @description TODO
  * @date 2023/12/14
  **/
-public class SimpleInstantiationStrategy implements InstantiationStrategy{
+public class SimpleInstantiationStrategy implements InstantiationStrategy {
     @Override
     public Object instantiate(BeanDefinition beanDefinition) {
         Class<?> beanClass = beanDefinition.getBeanClass();
@@ -17,7 +17,7 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy{
         try {
             Constructor<?> constructor = beanClass.getConstructor(null);
             result = constructor.newInstance(null);
-        } catch (Exception e ) {
+        } catch (Exception e) {
             throw new RuntimeException(String.format("Bean [%s] instantiate error", beanDefinition.getBeanClass().getName()));
         }
         return result;

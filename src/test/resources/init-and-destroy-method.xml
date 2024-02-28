@@ -4,7 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 	         http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="people" class="cn.jaychang.sf.test.bean.People" init-method="customInitMethod" destroy-method="customDestroyMethod">
+    <bean id="people" class="cn.jaychang.sf.test.bean.People" init-method="customInitMethod"
+          destroy-method="customDestroyMethod">
         <property name="name" value="jaychang"/>
         <property name="car" ref="car"/>
     </bean>

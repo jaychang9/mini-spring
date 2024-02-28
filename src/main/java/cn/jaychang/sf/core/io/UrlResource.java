@@ -10,7 +10,7 @@ import java.net.URLConnection;
  * @description TODO
  * @date 2023/12/14
  **/
-public class UrlResource implements Resource{
+public class UrlResource implements Resource {
     private final URL url;
 
 

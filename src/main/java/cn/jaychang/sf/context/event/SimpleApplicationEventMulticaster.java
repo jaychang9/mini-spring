@@ -11,7 +11,7 @@ import java.lang.reflect.Type;
  * @author jaychang
  * @since 2024/1/8
  **/
-public class SimpleApplicationEventMulticaster extends AbstractApplicationListenerMulticaster{
+public class SimpleApplicationEventMulticaster extends AbstractApplicationListenerMulticaster {
     @Override
     public void multicastEvent(ApplicationEvent event) {
         for (ApplicationListener listener : listeners) {

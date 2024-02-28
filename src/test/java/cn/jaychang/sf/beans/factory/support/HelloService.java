@@ -6,13 +6,13 @@ package cn.jaychang.sf.beans.factory.support;
  */
 public class HelloService {
 
-	public String sayHello() {
-		System.out.println("hello");
-		return "hello";
-	}
+    public String sayHello() {
+        System.out.println("hello");
+        return "hello";
+    }
 
-	@Override
-	public String toString() {
-		return "HelloService{}";
-	}
+    @Override
+    public String toString() {
+        return "HelloService{}";
+    }
 }

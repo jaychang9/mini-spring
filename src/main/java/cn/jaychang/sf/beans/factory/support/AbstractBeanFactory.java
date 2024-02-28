@@ -20,14 +20,14 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
 
     @Override
     public <T> T getBean(String name, Class<T> requiredType) throws BeansException {
-        return (T)getBean(name);
+        return (T) getBean(name);
     }
 
     @Override
     public Object getBean(String name) throws BeansException {
         // 由于继承了 DefaultSingletonBeanRegistry 所以拥有了单例缓存的能力，因此这里可以先从单例缓存中取 bean
-        Object sharedInstance  = getSingleton(name);
-        if (sharedInstance  != null) {
+        Object sharedInstance = getSingleton(name);
+        if (sharedInstance != null) {
             //如果是FactoryBean，从FactoryBean#getObject中创建bean
             return getObjectForBeanInstance(sharedInstance, name);
         }
@@ -47,7 +47,7 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
             bean = factoryBeanObjectCache.get(name);
             if (Objects.isNull(bean)) {
                 try {
-                    bean =  factoryBean.getObject();
+                    bean = factoryBean.getObject();
                     factoryBeanObjectCache.put(name, bean);
                 } catch (Exception e) {
                     throw new BeansException(String.format("Error create bean use BeanFactory [%s], %s", name, e.getMessage()));

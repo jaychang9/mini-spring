@@ -19,7 +19,9 @@ public class BeanDefinition {
 
     private String destroyMethodName;
 
-    /** 默认为单例 */
+    /**
+     * 默认为单例
+     */
     private String scope = SCOPE_SINGLETON;
 
     private boolean singleton = true;

@@ -15,20 +15,20 @@ public class DefaultListableBeanFactoryTest {
     @Test
     public void registerBeanDefinitionBySimpleInstantiation() {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
-        beanFactory.registerBeanDefinition("helloService",new BeanDefinition(HelloService.class));
+        beanFactory.registerBeanDefinition("helloService", new BeanDefinition(HelloService.class));
         HelloService helloService = (HelloService) beanFactory.getBean("helloService");
         String result = helloService.sayHello();
-        Assert.assertEquals(result,"hello");
+        Assert.assertEquals(result, "hello");
     }
 
     @Test
     public void registerBeanDefinitionByCglibSubClassingInstantiation() {
         DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
         beanFactory.setInstantiationStrategy(new CglibSubclassingInstantiationStrategy());
-        beanFactory.registerBeanDefinition("helloService",new BeanDefinition(HelloService.class));
+        beanFactory.registerBeanDefinition("helloService", new BeanDefinition(HelloService.class));
         HelloService helloService = (HelloService) beanFactory.getBean("helloService");
         String result = helloService.sayHello();
-        Assert.assertEquals(result,"hello");
+        Assert.assertEquals(result, "hello");
     }
 
     @Test
@@ -37,10 +37,10 @@ public class DefaultListableBeanFactoryTest {
         PropertyValues propertyValues = new PropertyValues();
         propertyValues.addPropertyValue(new PropertyValue("name", "jaychang"));
         propertyValues.addPropertyValue(new PropertyValue("age", 18));
-        beanFactory.registerBeanDefinition("people",new BeanDefinition(People.class, propertyValues));
+        beanFactory.registerBeanDefinition("people", new BeanDefinition(People.class, propertyValues));
         People people = (People) beanFactory.getBean("people");
         System.out.println(people);
-        Assert.assertEquals(people.getName(),"jaychang");
+        Assert.assertEquals(people.getName(), "jaychang");
     }
 
     @Test
@@ -50,16 +50,16 @@ public class DefaultListableBeanFactoryTest {
         peoplePropertyValues.addPropertyValue(new PropertyValue("name", "jaychang"));
         peoplePropertyValues.addPropertyValue(new PropertyValue("age", 18));
         peoplePropertyValues.addPropertyValue(new PropertyValue("car", new BeanReference("car")));
-        beanFactory.registerBeanDefinition("people",new BeanDefinition(People.class, peoplePropertyValues));
+        beanFactory.registerBeanDefinition("people", new BeanDefinition(People.class, peoplePropertyValues));
 
         PropertyValues carPropertyValues = new PropertyValues();
-        carPropertyValues.addPropertyValue(new PropertyValue("brandName","geely"));
-        beanFactory.registerBeanDefinition("car",new BeanDefinition(Car.class, carPropertyValues));
+        carPropertyValues.addPropertyValue(new PropertyValue("brandName", "geely"));
+        beanFactory.registerBeanDefinition("car", new BeanDefinition(Car.class, carPropertyValues));
 
         People people = (People) beanFactory.getBean("people");
         System.out.println(people);
-        Assert.assertEquals(people.getName(),"jaychang");
-        Assert.assertEquals(people.getCar().getBrandName(),"geely");
+        Assert.assertEquals(people.getName(), "jaychang");
+        Assert.assertEquals(people.getCar().getBrandName(), "geely");
     }
 
 

@@ -12,7 +12,7 @@ import java.lang.reflect.Method;
  * @description TODO
  * @date 2023/12/14
  **/
-public class CglibSubclassingInstantiationStrategy implements InstantiationStrategy{
+public class CglibSubclassingInstantiationStrategy implements InstantiationStrategy {
     @Override
     public Object instantiate(BeanDefinition beanDefinition) {
         Enhancer enhancer = new Enhancer();

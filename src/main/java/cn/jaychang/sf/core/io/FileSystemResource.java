@@ -9,7 +9,7 @@ import java.nio.file.Path;
  * @description TODO
  * @date 2023/12/14
  **/
-public class FileSystemResource implements Resource{
+public class FileSystemResource implements Resource {
     private final String filePath;
 
 

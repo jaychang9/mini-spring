@@ -13,12 +13,12 @@ import org.junit.Test;
  **/
 public class ApplicationContextTest {
     @Test
-    public void testApplicationContext() throws Exception{
+    public void testApplicationContext() throws Exception {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring-for-test-application-context.xml");
 
         Car car = (Car) applicationContext.getBean("car");
         //brand属性在CustomerBeanPostProcessor中被修改为byd
-        Assert.assertEquals("byd",car.getBrandName());
+        Assert.assertEquals("byd", car.getBrandName());
 
         // 每次获取 bean 时，都会调用各个注册在 spring 里的 BeanPostProcessor
         People people = (People) applicationContext.getBean("people");

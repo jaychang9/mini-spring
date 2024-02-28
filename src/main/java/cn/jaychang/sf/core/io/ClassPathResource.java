@@ -8,7 +8,7 @@ import java.io.InputStream;
  * @description TODO
  * @date 2023/12/14
  **/
-public class ClassPathResource implements Resource{
+public class ClassPathResource implements Resource {
     private final String path;
 
 

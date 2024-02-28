@@ -16,7 +16,7 @@ import org.junit.Test;
 public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
 
     @Test
-    public void testBeanFactoryPostProcessor() throws Exception{
+    public void testBeanFactoryPostProcessor() throws Exception {
         DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
         XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
@@ -31,7 +31,7 @@ public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
     }
 
     @Test
-    public void testBeanPostProcessor() throws Exception{
+    public void testBeanPostProcessor() throws Exception {
         DefaultListableBeanFactory defaultListableBeanFactory = new DefaultListableBeanFactory();
 
         XmlBeanDefinitionReader xmlBeanDefinitionReader = new XmlBeanDefinitionReader(defaultListableBeanFactory);
@@ -42,7 +42,7 @@ public class BeanFactoryPostProcessorAndBeanPostProcessorTest {
 
         Car car = (Car) defaultListableBeanFactory.getBean("car");
         //brand属性在CustomerBeanPostProcessor中被修改为byd
-        Assert.assertEquals("byd",car.getBrandName());
+        Assert.assertEquals("byd", car.getBrandName());
 
         // 每次获取 bean 时，都会调用各个注册在 spring 里的 BeanPostProcessor
         People people = (People) defaultListableBeanFactory.getBean("people");

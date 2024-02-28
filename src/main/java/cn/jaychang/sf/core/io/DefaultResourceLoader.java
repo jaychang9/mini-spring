@@ -10,7 +10,7 @@ import java.net.URL;
  * @description TODO
  * @date 2023/12/14
  **/
-public class DefaultResourceLoader implements ResourceLoader{
+public class DefaultResourceLoader implements ResourceLoader {
     public static final String CLASSPATH_URL_PREFIX = "classpath:";
 
     @Override
